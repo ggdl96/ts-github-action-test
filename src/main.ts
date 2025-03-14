@@ -19,12 +19,17 @@ export async function run(): Promise<void> {
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
     core.debug(`Message: ${message}`)
 
+    core.info('======== Start process ========')
     const messageOutput = await processMessageOutput(message)
-
+    core.info('======== End process ========')
     // Set outputs for other workflow steps to use
     core.setOutput('message', messageOutput)
   } catch (error) {
     // Fail the workflow run if an error occurs
-    if (error instanceof Error) core.setFailed(error.message)
+    if (error instanceof Error) {
+      core.setFailed(error.message)
+    } else {
+      core.setFailed(typeof error === 'string' ? error : 'Unknown Error')
+    }
   }
 }
