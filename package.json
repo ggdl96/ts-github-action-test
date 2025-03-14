@@ -1,6 +1,6 @@
 {
-  "name": "typescript-action",
-  "description": "GitHub Actions TypeScript template",
+  "name": "ts-github-action-test",
+  "description": "GitHub Actions TypeScript",
   "version": "0.0.0",
   "author": "",
   "type": "module",
@@ -28,7 +28,8 @@
     "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
     "format:write": "npx prettier --write .",
     "format:check": "npx prettier --check .",
-    "lint": "npx eslint .",
+    "check:types": "tsc --noemit",
+    "lint": "npx eslint && npm run check:types",
     "local-action": "npx @github/local-action . src/main.ts .env",
     "package": "npx rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
     "package:watch": "npm run package -- --watch",

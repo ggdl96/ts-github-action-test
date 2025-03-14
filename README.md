@@ -1,35 +1,4 @@
-# Create a GitHub Action Using TypeScript
-
-[![GitHub Super-Linter](https://github.com/actions/typescript-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/actions/typescript-action/actions/workflows/ci.yml/badge.svg)
-[![Check dist/](https://github.com/actions/typescript-action/actions/workflows/check-dist.yml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/check-dist.yml)
-[![CodeQL](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yml)
-[![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
-
-Use this template to bootstrap the creation of a TypeScript action. :rocket:
-
-This template includes compilation support, tests, a validation workflow,
-publishing, and versioning guidance.
-
-If you are new, there's also a simpler introduction in the
-[Hello world JavaScript action repository](https://github.com/actions/hello-world-javascript-action).
-
-## Create Your Own Action
-
-To create your own action, you can use this repository as a template! Just
-follow the below instructions:
-
-1. Click the **Use this template** button at the top of the repository
-1. Select **Create a new repository**
-1. Select an owner and name for your new repository
-1. Click **Create repository**
-1. Clone your new repository
-
-> [!IMPORTANT]
->
-> Make sure to remove or update the [`CODEOWNERS`](./CODEOWNERS) file! For
-> details on how to use this file, see
-> [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).
+# TypeScript GitHub Action for testing
 
 ## Initial Setup
 
@@ -63,13 +32,6 @@ need to perform some initial setup steps before you can develop your action.
 
    ```bash
    $ npm test
-
-   PASS  ./index.test.js
-     ✓ throws invalid number (3ms)
-     ✓ wait 500 ms (504ms)
-     ✓ test runs (95ms)
-
-   ...
    ```
 
 ## Update the Action Metadata
@@ -108,17 +70,12 @@ There are a few things to keep in mind when writing your action code:
   For more information about the GitHub Actions toolkit, see the
   [documentation](https://github.com/actions/toolkit/blob/master/README.md).
 
-So, what are you waiting for? Go ahead and start customizing your action!
-
 1. Create a new branch
 
    ```bash
    git checkout -b releases/v1
    ```
-
-1. Replace the contents of `src/` with your action code
-1. Add tests to `__tests__/` for your source code
-1. Format, test, and build the action
+2. Format, test, and build the action
 
    ```bash
    npm run all
@@ -129,7 +86,7 @@ So, what are you waiting for? Go ahead and start customizing your action!
    > you do not run this step, your action will not work correctly when it is
    > used in a workflow.
 
-1. (Optional) Test your action locally
+3. (Optional) Test your action locally
 
    The [`@github/local-action`](https://github.com/github/local-action) utility
    can be used to test your action locally. It is a simple command-line tool
@@ -157,21 +114,21 @@ So, what are you waiting for? Go ahead and start customizing your action!
    file, [`.env.example`](./.env.example), and the
    [GitHub Actions Documentation](https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables).
 
-1. Commit your changes
+4. Commit your changes
 
    ```bash
    git add .
    git commit -m "My first action is ready!"
    ```
 
-1. Push them to your repository
+5. Push them to your repository
 
    ```bash
    git push -u origin releases/v1
    ```
 
-1. Create a pull request and get feedback on your action
-1. Merge the pull request into the `main` branch
+6. Create a pull request and get feedback on your action
+7. Merge the pull request into the `main` branch
 
 Your action is now published! :rocket:
 
