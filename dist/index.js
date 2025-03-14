@@ -27274,15 +27274,12 @@ async function run() {
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
         coreExports.debug(`Message: ${message}`);
         coreExports.info('======== Start process ========');
-        console.log('start process');
         const messageOutput = await processMessageOutput(message);
         coreExports.info('======== End process ========');
-        console.log('ends process: ', messageOutput);
         // Set outputs for other workflow steps to use
         coreExports.setOutput('message', messageOutput);
     }
     catch (error) {
-        console.log('error =>', error);
         // Fail the workflow run if an error occurs
         if (error instanceof Error) {
             coreExports.setFailed(error.message);
