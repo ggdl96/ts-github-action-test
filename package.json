@@ -1,7 +1,7 @@
 {
   "name": "ts-github-action-test",
   "description": "GitHub Actions TypeScript",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Gustavo Gabriel De Luca",
   "type": "module",
   "private": true,

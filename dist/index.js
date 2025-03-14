@@ -27273,14 +27273,20 @@ async function run() {
         }
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
         coreExports.debug(`Message: ${message}`);
+        coreExports.info('======== Start process ========');
         const messageOutput = await processMessageOutput(message);
+        coreExports.info('======== End process ========');
         // Set outputs for other workflow steps to use
         coreExports.setOutput('message', messageOutput);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
-        if (error instanceof Error)
+        if (error instanceof Error) {
             coreExports.setFailed(error.message);
+        }
+        else {
+            coreExports.setFailed(typeof error === 'string' ? error : 'Unknown Error');
+        }
     }
 }
 
