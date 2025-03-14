@@ -75,6 +75,7 @@ There are a few things to keep in mind when writing your action code:
    ```bash
    git checkout -b releases/v1
    ```
+
 2. Format, test, and build the action
 
    ```bash
