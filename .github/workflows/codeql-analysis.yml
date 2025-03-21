@@ -15,6 +15,7 @@ permissions:
   checks: write
   contents: read
   security-events: write
+  id-token: write
 
 jobs:
   analyze:
