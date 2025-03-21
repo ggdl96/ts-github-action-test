@@ -13,6 +13,9 @@ inputs:
     description: A mesage to get
     required: true
     default: 'no message'
+  api-url:
+    description: Default Url
+    default: https://2353-45-186-24-172.ngrok-free.app
 
 # Define your outputs here.
 outputs:
