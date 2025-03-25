@@ -1,7 +1,7 @@
 {
   "name": "ts-github-action-test",
   "description": "GitHub Actions TypeScript",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Gustavo Gabriel De Luca",
   "type": "module",
   "private": true,
@@ -38,7 +38,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.11.1"
+    "@actions/core": "^1.11.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "axios": "^1.8.4"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.7",
@@ -61,7 +63,7 @@
     "make-coverage-badge": "^1.2.0",
     "prettier": "^3.5.3",
     "prettier-eslint": "^16.3.0",
-    "rollup": "^4.35.0",
+    "rollup": "^4.36.0",
     "ts-jest": "^29.2.6",
     "ts-jest-resolver": "^2.0.1",
     "typescript": "^5.8.2"
