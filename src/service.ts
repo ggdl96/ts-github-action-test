@@ -1,43 +1,74 @@
 import * as core from '@actions/core'
 import axios from 'axios'
-// import fs from 'fs'
-// import FormData from 'form-data'
-// import { Tool } from './inputs'
-// import { getGitHubContext, getRepositoryInfo } from './github'
-// import { getToken } from './core.js'
+import { ResponseSchema, StepListSchema } from './schemas.js'
+import { getRepoInfo } from './github.js'
 
 export async function processMessageOutput(message: string) {
   const apiUrl = core.getInput('api-url')
-  const token = '' //await getToken()
+  const token = ''
 
   const url = `${apiUrl}/api-product/submit`
 
-  const data = { owner: 'admin' }
+  const repoInfo = getRepoInfo()
+  const data = { owner: repoInfo.owner, message }
 
   core.info('Engage with API')
+
   return axios
     .post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
-    .then((data) => {
-      console.log(`Sucesss`)
+    .then((response) => {
+      const parsedResponse = ResponseSchema.safeParse(response.data)
+
+      if (!parsedResponse.success) {
+        core.setFailed('API Engagement Failed: Invalid API response schema')
+        throw new Error(`Invalid API response: ${parsedResponse.error}`)
+      }
+
+      const validData = parsedResponse.data
+
       core.info('API Engagement Success')
       core.info('======= process =======')
-      // PROBABLY BETTER WITH ZOD
-      if (Array.isArray(data.data?.steps)) {
-        for (const step of data.data.steps) {
-          core.info(`------ ${step.name} ------`)
-          core.info(`[${step.status}]`)
-          core.info(`------ ------`)
-        }
-      }
-      return `This was the received message: ${message}`
+
+      validData.steps.forEach((step) => {
+        core.info(`------ ${step.name} ------`)
+        core.info(`[${step.status}]`)
+        core.info(`------ ------`)
+      })
+
+      return validData.message
     })
     .catch((error) => {
       core.setFailed('API Engagement Failed')
-      console.error(`'Failed with error: `, error)
-      throw new Error(`Failed`)
+      if (error.response.data) {
+        if (error.response.data.detail) {
+          console.error(error.response.data.detail.description)
+          core.setFailed(
+            `Error description ${error.response.data.detail.description}`
+          )
+        }
+
+        if (error.response.data.detail?.steps) {
+          const stepList = StepListSchema.safeParse(
+            error.response.data.detail.steps
+          )
+
+          if (!stepList.success) {
+            throw new Error(`Invalid API response: ${stepList.error}`)
+          }
+
+          stepList.data.forEach((step) => {
+            core.info(`------ ${step.name} ------`)
+            core.info(`[${step.status}]`)
+            core.info(`------ ------`)
+          })
+        }
+      } else {
+        console.error('Failed with error: ', error)
+        throw new Error('Failed')
+      }
     })
 }
