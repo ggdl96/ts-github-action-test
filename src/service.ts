@@ -2,10 +2,12 @@ import * as core from '@actions/core'
 import axios from 'axios'
 import { ResponseSchema, StepListSchema } from './schemas.js'
 import { getRepoInfo } from './github.js'
+import { getApiUrl } from './input.js'
+import { getIdToken } from './core.js'
 
 export async function processMessageOutput(message: string) {
-  const apiUrl = core.getInput('api-url')
-  const token = ''
+  const apiUrl = getApiUrl()
+  const token = await getIdToken(apiUrl)
 
   const url = `${apiUrl}/api-product/submit`
 
