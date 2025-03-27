@@ -15,12 +15,15 @@ export async function processMessageOutput(message: string) {
 
   core.info('Engage with API')
 
+  const setup = {
+    headers: token
+      ? {
+          Authorization: `Bearer ${token}`
+        }
+      : undefined
+  }
   return axios
-    .post(url, data, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    .post(url, data, setup)
     .then((response) => {
       const parsedResponse = ResponseSchema.safeParse(response.data)
 
