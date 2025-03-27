@@ -38,9 +38,17 @@ describe('github.ts', () => {
       jest.clearAllMocks()
     })
 
-    it('returns an object with a owner and a repo fields', async () => {
+    it('returns a token based on a passed url', async () => {
       const token = await getIdToken('http://some-url.com')
       expect(token).toStrictEqual('asd3xf43')
+    })
+
+    it('given a empty url it must throw an error', async () => {
+      core.getIDToken.mockClear()
+
+      await expect(async () => {
+        await getIdToken('')
+      }).rejects.toThrow('apiUrl must be Provided')
     })
   })
 })
