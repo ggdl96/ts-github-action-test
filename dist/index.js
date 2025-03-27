@@ -55762,7 +55762,15 @@ async function getIdToken(apiUrl) {
     if (!apiUrl) {
         throw new Error('apiUrl must be Provided');
     }
-    return await coreExports.getIDToken(apiUrl);
+    let token = '';
+    try {
+        token = await coreExports.getIDToken(apiUrl);
+    }
+    catch (error) {
+        console.error('Error getting ID token', error);
+        token = '';
+    }
+    return token;
 }
 function getRepoInfo() {
     return githubExports.context.repo;
@@ -55779,12 +55787,15 @@ async function processMessageOutput(message) {
     const repoInfo = getRepoInfo();
     const data = { owner: repoInfo.owner, message };
     coreExports.info('Engage with API');
+    const setup = {
+        headers: token
+            ? {
+                Authorization: `Bearer ${token}`
+            }
+            : undefined
+    };
     return axios
-        .post(url, data, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
+        .post(url, data, setup)
         .then((response) => {
         const parsedResponse = ResponseSchema.safeParse(response.data);
         if (!parsedResponse.success) {
