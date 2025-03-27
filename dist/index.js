@@ -55762,9 +55762,20 @@ function getRepoInfo() {
     return githubExports.context.repo;
 }
 
+function getApiUrl() {
+    return coreExports.getInput('api-url');
+}
+
+async function getIdToken(apiUrl) {
+    if (!apiUrl) {
+        throw new Error('apiUrl must be Provided');
+    }
+    return await coreExports.getIDToken(apiUrl);
+}
+
 async function processMessageOutput(message) {
-    const apiUrl = coreExports.getInput('api-url');
-    const token = '';
+    const apiUrl = getApiUrl();
+    const token = await getIdToken(apiUrl);
     const url = `${apiUrl}/api-product/submit`;
     const repoInfo = getRepoInfo();
     const data = { owner: repoInfo.owner, message };

@@ -2,7 +2,8 @@
 
 ## Introduction
 
-This is a simple GitHub Action built with TypeScript for testing and learning purposes. It demonstrates how to create and use custom GitHub Actions.
+This is a simple GitHub Action built with TypeScript for testing and learning
+purposes. It demonstrates how to create and use custom GitHub Actions.
 
 ## Usage
 
@@ -22,22 +23,24 @@ permissions:
    with:
       message: Hi, this is for test!
 ```
+
 you can choose the verison of the action, ie:
+
 - @1.0.3
 - @1.0.2
 - @1.0.1
 - ...
-  
-##  Complete example
+
+## Complete example
 
 ```yml
 name: Example Workflow
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test-action:
@@ -45,15 +48,15 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Run TS GitHub Action
         uses: ggdl96/ts-github-action-test@1.0.3
         with:
           message: Hi, this is for test!
-          
+
       # Example of using the action's outputs (if any)
       - name: Use Action Output
         run: echo "The action produced [output]"
