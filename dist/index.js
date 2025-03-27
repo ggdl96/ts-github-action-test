@@ -55758,19 +55758,18 @@ function requireGithub () {
 
 var githubExports = requireGithub();
 
+async function getIdToken(apiUrl) {
+    if (!apiUrl) {
+        throw new Error('apiUrl must be Provided');
+    }
+    return await coreExports.getIDToken(apiUrl);
+}
 function getRepoInfo() {
     return githubExports.context.repo;
 }
 
 function getApiUrl() {
     return coreExports.getInput('api-url');
-}
-
-async function getIdToken(apiUrl) {
-    if (!apiUrl) {
-        throw new Error('apiUrl must be Provided');
-    }
-    return await coreExports.getIDToken(apiUrl);
 }
 
 async function processMessageOutput(message) {
